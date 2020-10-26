@@ -8,10 +8,14 @@ def get_html(url):    # функция отправляет запрос и по
     return req.text
     
 
-def write_csv(data):    # функция записывает данные в csv file
+def write_csv(d):    # функция записывает данные в csv file
     with open('coinmarkcap.csv', 'a') as f:
         write = csv.writer(f)
-        pass
+        
+        write.writerow([d['name'],
+                        d['ticker'],
+                        d['url'],
+                        d['price']])
 
 
 def get_data(html):    # функция парсит html код
@@ -31,14 +35,18 @@ def get_data(html):    # функция парсит html код
             url_coin = 'https://coinmarketcap.com' + tags_td[2].find('a').get('href')
             price_coin = tags_td[3].find('a').text
             cnt += 1
-            # print(cnt, name_coin)
-            # print(cnt, ticker_coin)
-            # print(cnt, url_coin)
-            print(cnt, price_coin)
+
+            data = {'name': name_coin,
+                    'ticker': ticker_coin,
+                    'url': url_coin,
+                    'price': price_coin}
+            
+            write_csv(data)
+
+
         else:
             continue
 
-        
 
 
 
