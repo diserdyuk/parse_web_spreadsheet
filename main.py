@@ -28,10 +28,13 @@ def get_data(html):    # функция парсит html код
         if len(tags_td) > 1:    # данное условие для обхода баннера на 11й строке таблицы            
             name_coin = tags_td[2].find('p').text
             ticker_coin = tags_td[2].find('p', color="text3").text
-            url_coin = tags_td[2].find('a').get('href')
+            url_coin = 'https://coinmarketcap.com' + tags_td[2].find('a').get('href')
+            price_coin = tags_td[3].find('a').text
             cnt += 1
-            # print(cnt, name_coin, ticker_coin)
-            print(cnt, 'https://coinmarketcap.com' + url_coin)
+            # print(cnt, name_coin)
+            # print(cnt, ticker_coin)
+            # print(cnt, url_coin)
+            print(cnt, price_coin)
         else:
             continue
 
